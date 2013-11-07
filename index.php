@@ -1,6 +1,11 @@
 <?php
-mysql_connect("localhost","root","");
-mysql_select_db("youtube");
+$mysql_server = "localhost";
+$mysql_user = "root";
+$mysql_password = "";
+$mysql_database = "youtube";
+
+mysql_connect($mysql_server,$mysql_user,$mysql_password);
+mysql_select_db($mysql_database);
 
 //0 = all w/o series, -1 = all videos
 $series = (isset($_GET['series'])) ? $_GET['series'] : -1;
