@@ -175,7 +175,7 @@ if (isset($_GET['unwatchedvideo']))
 	die("OK");
 }
 
-//Video and series selection logic
+//Video and series selection logic (this looks a bit messy since a lot is going on. Basicly it just selects relevant videos from the database)
 $show_from_top = 15;
 $show_from_bottom = 3;
 
