@@ -1,0 +1,31 @@
+body{
+	margin:10px;
+	position:relative;
+}
+
+/* Link Drag'n'drop thing */
+#notice {
+	text-align: center; 
+	font-size: 50px; 
+	text-shadow: 0px 1px 0px #FFF;
+	position: absolute;
+	padding-top:150px;
+	top: 0; left: 0; right: 0; bottom: 0;
+	display:none;
+}
+#link_grabber {
+	position: absolute; 
+	top: 0; left: 0; right: 0; bottom: 0; 
+	display: none; 
+}
+#link_grabber.active { 
+	display: block; 
+	opacity: 0.01;
+}
+#notice.active {
+	background-color:#DDF;
+	border-radius:5px;
+	z-index:24;
+	opacity:0.95;
+	display:block;
+}

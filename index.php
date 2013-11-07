@@ -223,24 +223,20 @@ function displayVideo($res)
 <head>
 <title>Youtube</title>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="./styles.css" rel="stylesheet">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<style>
-body{margin:10px;position:relative;}
-#notice {text-align: center; font-size: 50px; text-shadow: 0px 1px 0px #FFF;position: absolute; top: 0; left: 0; right: 0; bottom: 0;display:none;}
-#notice > span { font-size: 12px; }
-#link_grabber { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: none; }
-#link_grabber.active { display: block; opacity: 0.01;}
-#notice.active { background-color:#DDF; border-radius:5px;z-index:24;opacity:0.95;padding-top:10%;display:block;}
-
-</style>
 </head>
 <body>
 
-<form action="./" method="post" id='add_link_form'><input type='hidden' name='add_link' value='' id='add_link'/></form>
+<!-- Link Drag'n'drop thing-->
+<form action="./" method="post" id='add_link_form'>
+	<input type='hidden' name='add_link' value='' id='add_link'/>
+</form>
 <textarea id="link_grabber" style='z-index:25'></textarea>
 <div id="notice">Add video<br><i class='glyphicon glyphicon-plus'></i><br/></div>
 
+<!-- Add series modal -->
 <div class="modal fade" id="seriesmodal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -253,18 +249,21 @@ body{margin:10px;position:relative;}
 			<div class="form-group">
 				<label for="series_create_name">Name</label>
 				<input type="text" class="form-control" id="series_create_name" name="series_create_name">
+				<span class='help-block'>The name of the series</span>
 			</div>
 			<div class="form-group">
 				<label for="series_create_name">Author</label>
 				<input type="text" class="form-control" id="series_create_author" name="series_create_author">
+				<span class='help-block'>The author of the series</span>
 			</div>
 			<div class="form-group">
 				<label for="series_create_name">Auto-identify search</label>
 				<input type="text" class="form-control" id="series_create_search" name="series_create_search">
+				<span class='help-block'>A string that ties a video to this series, if found in in the title of the video</span>
 			</div>
 		  </div>
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 			<input type="submit" class="btn btn-primary" value="Save"/>
 		  </div>
 	  </form>
@@ -273,6 +272,8 @@ body{margin:10px;position:relative;}
 </div><!-- /.modal -->
 
 <div class="container">
+	
+	<!-- Top bar -->
 	<div class="row">
 		<div class="col-lg-2">
 			<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#seriesmodal">
@@ -286,103 +287,64 @@ body{margin:10px;position:relative;}
 				<a href='./?series=<?=$series?>' class="btn btn-warning btn-sm pull-right">Show unwatched videos</a>
 			  <?php }?>
 		</div>
-	</div>
+	</div><!-- /Top bar -->
+	
 	<hr/>
-	<div class="col-lg-4 hidden-xs hidden-sm">
-		<div class="well">
-			<ul class="nav nav-pills nav-stacked">
-			  <li <?=($series==-1)?'class="active"':''?>><a href="./?series=-1<?=(isset($_GET['watched']))?'&amp;watched':''?>">All videos <span class='badge pull-right'><?=$all_videos_count?></span></a></li>
-			  <li <?=($series==0)?'class="active"':''?>><a href="./?series=0<?=(isset($_GET['watched']))?'&amp;watched':''?>">All w/o series <span class='badge pull-right'><?=$all_videos_woseries_count?></span></a></li>
-			  <?php 
-			  $author_name = '';
-			  while($res = mysql_fetch_assoc($series_query)){ 
-				if ($author_name != $res['author'])
-				{
-					$author_name = $res['author'];
-					echo "<li><strong>$author_name</strong></li>";
-				}
-			  ?>
-				<li <?=($series==$res['id'])?'class="active"':''?>><a href="./?series=<?=$res['id']?><?=(isset($_GET['watched']))?'&amp;watched':''?>"><?=$res['name']?><span class='badge pull-right'><?=$res['num']?></span></a></li>
-			  <?php }?>
-			</ul>
-		</div>
-	</div>
-	<div class="col-lg-8"><!-- Feed -->
-		<?php
-		while ($res = mysql_fetch_assoc($query)){
-			displayVideo($res);
-		}
-		if ($extra_videos > 0) {
+	<div class="row">
+		<!-- Series box -->
+		<div class="col-lg-4 hidden-xs hidden-sm">
+			<div class="well">
+				<ul class="nav nav-pills nav-stacked">
+				  <li <?=($series==-1)?'class="active"':''?>><a href="./?series=-1<?=(isset($_GET['watched']))?'&amp;watched':''?>">All videos <span class='badge pull-right'><?=$all_videos_count?></span></a></li>
+				  <li <?=($series==0)?'class="active"':''?>><a href="./?series=0<?=(isset($_GET['watched']))?'&amp;watched':''?>">All w/o series <span class='badge pull-right'><?=$all_videos_woseries_count?></span></a></li>
+				  <?php 
+				  $author_name = '';
+				  while($res = mysql_fetch_assoc($series_query)){ 
+					if ($author_name != $res['author'])
+					{
+						$author_name = $res['author'];
+						echo "<li><strong>$author_name</strong></li>";
+					}
+				  ?>
+					<li <?=($series==$res['id'])?'class="active"':''?>><a href="./?series=<?=$res['id']?><?=(isset($_GET['watched']))?'&amp;watched':''?>"><?=$res['name']?><span class='badge pull-right'><?=$res['num']?></span></a></li>
+				  <?php }?>
+				</ul>
+			</div>
+		</div><!-- /Series box -->
+		
+		<!-- Feed -->
+		<div class="col-lg-8">
+			<?php
+			while ($res = mysql_fetch_assoc($query)){
+				displayVideo($res);
+			}
+			if ($extra_videos > 0) {
+				?>
+					<div class="media">
+					  <div class="media-body">
+						<h4 class="media-heading">... <?=$extra_videos?> more ...</h4>
+					  </div>
+					</div>
+				<?php
+			}
+			for ($i = mysql_num_rows($lastq) - 1; $i >= 0; $i--) {
+				mysql_data_seek($lastq, $i);
+				$lastres = mysql_fetch_assoc($lastq);
+				displayVideo($lastres);	
+			}
+			
+			if (mysql_num_rows($query) == 0){
 			?>
 				<div class="media">
 				  <div class="media-body">
-					<h4 class="media-heading">... <?=$extra_videos?> more ...</h4>
+					<h4 class="media-heading">There are no videos here</h4>
 				  </div>
 				</div>
-			<?php
-		}
-		for ($i = mysql_num_rows($lastq) - 1; $i >= 0; $i--) {
-			mysql_data_seek($lastq, $i);
-			$lastres = mysql_fetch_assoc($lastq);
-			displayVideo($lastres);	
-		}
-		
-		if (mysql_num_rows($query) == 0){
-		?>
-			<div class="media">
-			  <div class="media-body">
-				<h4 class="media-heading">There are no videos here</h4>
-			  </div>
-			</div>
-		<?php } ?>
-		
-	</div>
-</div>
-<script type="text/javascript">
-var watchedfun;
-var unwatchedfun;
-watchedfun = function(eo){
-	var id = $(this).data('id');
-	$.ajax("./?watchedvideo=" + id);
-	$(this).removeClass("watchedbtn");
-	$(this).addClass("unwatchedbtn");
-	$(this).html("Mark as not watched");
-	$(this).removeClass("btn-primary");
-	$(this).addClass("btn-danger");
-	$(this).unbind("click");
-	$(this).click(unwatchedfun);
-};
-unwatchedfun = function(eo){
-	var id = $(this).data('id');
-	$.ajax("./?unwatchedvideo=" + id);
-	$(this).removeClass("unwatchedbtn");
-	$(this).addClass("watchedbtn");
-	$(this).html("Mark as watched");
-	$(this).removeClass("btn-danger");
-	$(this).addClass("btn-primary");
-	$(this).unbind("click");
-	$(this).click(watchedfun);
-};
-$('.watchedbtn').click(watchedfun);
-$('.unwatchedbtn').click(unwatchedfun);
+			<?php } ?>
+		</div> <!-- /Feed -->
+	</div> <!-- /Row -->
+</div> <!-- /Container -->
 
-$("body").bind("dragenter dragover", function(){
-    $("#link_grabber").addClass("active");
-    $("#notice").addClass("active");
-}).bind("dragleave dragexit", function(){
-	$("#notice").removeClass("active");
-});
-
-setInterval(function(){
-    if($("#link_grabber").val() != ""){
-        var val = $("#link_grabber").val();
-        $("#link_grabber").val("").removeClass("active");
-        $("#notice").removeClass("active");
-		$("#add_link").val(val);
-		$("#add_link_form").submit();
-    }
-}, 100);
-
-</script>
+<script type="text/javascript" src="script.js"></script>
 </body>
 </html>
