@@ -49,12 +49,14 @@ After watching you press `Mark as watched`.
 
 * Manual adding videos to series
 * Removing videos from series
+* Editing / removing series
+* (deleting videos)
 * ???
-* 
 
 ##Known bugs:
 
 * The automatic series identifier seems to dislike ticks (') in names and searches. I'm not sure why since I think I handle it properly.
+* Undefined behaviour if provided link is not a youtube video
 
 ##Libraries/APIs used:
 
