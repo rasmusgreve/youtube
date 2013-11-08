@@ -1,4 +1,10 @@
 <?php
+/*
+This file is not for normal use.
+It is/was only used to add information to videos already in the database during development of the system
+
+
+*/
 mysql_connect("localhost","root","");
 mysql_select_db("youtube");
 /*
