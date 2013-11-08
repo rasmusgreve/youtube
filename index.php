@@ -215,7 +215,7 @@ function displayVideo($res)
 		<?php } else {?>
 			<button class='btn btn-primary watchedbtn' data-id="<?=$res['id']?>">Mark as watched</button>
 		<?php }?>
-			<!--<a class='btn btn-warning pull-right' href='./?delete=<?=$res['id']?>'>Delete</a>-->
+			<a class='btn btn-warning pull-right' href='./?delete=<?=$res['id']?>'>Delete</a>
 			<br>
 			<br>
 			<span class='badge'><?php printf("%02d:%02d", floor($res['duration'] / 60), $res['duration'] % 60);?></span>
