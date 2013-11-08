@@ -60,7 +60,7 @@ After watching you press `Mark as watched`.
 * [jQuery](http://jquery.com/)
 * [Twitter Bootstrap](http://getbootstrap.com/)
 * Google Youtube Video API ([http://gdata.youtube.com/feeds/api/videos/VIDEO_ID?v=2](http://gdata.youtube.com/feeds/api/videos/9bZkp7q19f0?v=2))
-* Google Youtube Video Thumbnail service ([(https://i1.ytimg.com/vi/VIDEO_ID/hqdefault.jpg)](https://i1.ytimg.com/vi/9bZkp7q19f0/hqdefault.jpg))
+* Google Youtube Video Thumbnail service ([(https://i1.ytimg.com/vi/VIDEO_ID/mqdefault.jpg)](https://i1.ytimg.com/vi/9bZkp7q19f0/mqdefault.jpg))
 
 (FYI: I discovered that the Youtube video API gets mad at you (403) if you send more than 100 request in very little time - just let it cool off for a bit)
 

@@ -17,8 +17,8 @@ while ($res = mysql_fetch_assoc($series_lookup_query)) $series_lookup[$res['id']
 function getImage($id)
 {
 	//return "https://i1.ytimg.com/vi/$id/default.jpg";
-	//return "https://i1.ytimg.com/vi/$id/mqdefault.jpg";
-	return "https://i1.ytimg.com/vi/$id/hqdefault.jpg";
+	return "https://i1.ytimg.com/vi/$id/mqdefault.jpg";
+	//return "https://i1.ytimg.com/vi/$id/hqdefault.jpg";
 	//return "https://i1.ytimg.com/vi/$id/sddefault.jpg";
 }
 
@@ -206,7 +206,7 @@ function displayVideo($res)
 	?>
 	<div class="media">
 	  <a class="pull-left" href="<?=getLink($res['id'])?>" target="_blank">
-		<img class="media-object" src="<?=getImage($res['id'])?>" onerror="this.src='./img/default-image.png';" width="150" height="113" alt="<?=$res['title']?>" title="<?=$res['title']?>">
+		<img class="media-object" src="<?=getImage($res['id'])?>" onerror="this.src='./img/default-image.png';" width="150" height="84" alt="<?=$res['title']?>" title="<?=$res['title']?>">
 	  </a>
 	  <div class="media-body">
 		<h4 class="media-heading"><?=$res['title']?> <span class='badge'><?=$res['author']?></span></h4>
@@ -216,7 +216,6 @@ function displayVideo($res)
 			<button class='btn btn-primary watchedbtn' data-id="<?=$res['id']?>">Mark as watched</button>
 		<?php }?>
 			<a class='btn btn-warning pull-right' href='./?delete=<?=$res['id']?>'>Delete</a>
-			<br>
 			<br>
 			<span class='badge'><?php printf("%02d:%02d", floor($res['duration'] / 60), $res['duration'] % 60);?></span>
 	  </div>
