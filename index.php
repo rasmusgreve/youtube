@@ -140,6 +140,7 @@ function deleteVideo($id)
 function extractId($link)
 {
 	$parts = explode("?v=",$link);
+	if (count($parts) <= 1) return '';
 	return $parts[1];
 }
 
@@ -152,7 +153,13 @@ if (isset($_POST['series_create_name']))
 
 if (isset($_POST['add_link']))
 {
-	insertVideo(extractId($_POST['add_link']));
+	$id = extractId($_POST['add_link']);
+	if ($id == '')
+	{
+		header("Location:./?linkerror");
+		die();
+	}
+	insertVideo($id);
 	header("Location:./");
 	die();
 }
@@ -228,6 +235,14 @@ function displayVideo($res)
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+<?php if (isset($_GET['linkerror'])) {?>
+<div class='alert alert-danger alert-dismissable'>
+<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+<strong>Link error!</strong> The link you tried to add could not be identified as a Youtube video
+</div>
+
+<?php } ?>
 
 <!-- Link Drag'n'drop thing-->
 <form action="./" method="post" id='add_link_form'>
