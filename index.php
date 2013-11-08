@@ -206,7 +206,7 @@ function displayVideo($res)
 	?>
 	<div class="media">
 	  <a class="pull-left" href="<?=getLink($res['id'])?>" target="_blank">
-		<img class="media-object" src="<?=getImage($res['id'])?>" width="150" alt="<?=$res['title']?>" title="<?=$res['title']?>">
+		<img class="media-object" src="<?=getImage($res['id'])?>" onerror="this.src='./img/default-image.png';" width="150" height="113" alt="<?=$res['title']?>" title="<?=$res['title']?>">
 	  </a>
 	  <div class="media-body">
 		<h4 class="media-heading"><?=$res['title']?> <span class='badge'><?=$res['author']?></span></h4>
@@ -230,7 +230,7 @@ function displayVideo($res)
 <head>
 <title>Youtube</title>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="./styles.css" rel="stylesheet">
+<link href="./css/styles.css" rel="stylesheet">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 </head>
@@ -360,6 +360,6 @@ function displayVideo($res)
 	</div> <!-- /Row -->
 </div> <!-- /Container -->
 
-<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="./js/script.js"></script>
 </body>
 </html>
