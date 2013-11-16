@@ -228,6 +228,7 @@ function displayVideo($res)
 <html>
 <head>
 <title>Youtube</title>
+<link rel="shortcut icon" href="img/icon.png">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 <link href="./css/styles.css" rel="stylesheet">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
